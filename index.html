@@ -696,7 +696,8 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xqaowpqr" method="POST">
+                    <input type="hidden" name="_subject" value="New contact from TechVenture website">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your full name">
@@ -819,7 +820,7 @@
             
             if (statsPosition < screenPosition && !countersAnimated) {
                 animateCounter('projectCount', 12);
-                animateCounter('studentCount', 003);
+                animateCounter('studentCount', 3);
                 animateCounter('mentorCount', 8);
                 animateCounter('satisfactionRate', 98, '%');
                 countersAnimated = true;
@@ -832,24 +833,34 @@
 
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
-            
-            // Basic validation
-            if (name && email && phone && message) {
-                // Show success modal
-                successModal.classList.add('active');
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Log to console (in real app, send to server)
-                console.log('Form submitted:', { name, email, phone, message });
-            }
+
+            // Submit form data to Formspree
+            const formData = new FormData(contactForm);
+
+            fetch(contactForm.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success modal and reset
+                    successModal.classList.add('active');
+                    contactForm.reset();
+                } else {
+                    response.json().then(data => {
+                        const errorMsg = (data && data.error) ? data.error : 'Error submitting form.';
+                        alert(errorMsg + ' Please try again later.');
+                    }).catch(() => {
+                        alert('Error submitting form. Please try again later.');
+                    });
+                }
+            })
+            .catch(() => {
+                alert('Network error. Please check your connection and try again.');
+            });
         });
 
         function closeModal() {
