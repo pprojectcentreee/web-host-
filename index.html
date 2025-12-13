@@ -741,6 +741,119 @@
         </div>
     </section>
 
+    <!-- Partners Section -->
+    <section class="partners">
+        <div class="partners-container">
+            <h2>Our Partners</h2>
+            <p class="partners-subtitle">Buy products from our partner Ellectra</p>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <a href="https://www.ellectra.in/" target="_blank" rel="noopener noreferrer" class="partner-link">
+                        <img src="c:\Users\ASUS\Desktop\projects\startu\Ellectra_w01wap.png" alt="Ellectra" class="partner-logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Styles -->
+    <style>
+        .partners {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .partners-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .partners h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .partners-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .partner-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .partner-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .partner-logo {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .partner-link:hover .partner-logo {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .partners h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .partners-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .partners-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .partner-card {
+                padding: 1.5rem;
+            }
+
+            .partner-logo {
+                max-width: 120px;
+            }
+        }
+    </style>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 TechVenture Project Center. All rights reserved.</p>
