@@ -1,1010 +1,1097 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechVenture - Project Center Startup</title>
+    <title>TechVenture - Project Services</title>
     <style>
         :root {
-            --color-primary: #2563eb;
-            --color-primary-dark: #1e40af;
-            --color-secondary: #10b981;
-            --color-bg: #ffffff;
-            --color-bg-alt: #f8fafc;
-            --color-text: #1e293b;
-            --color-text-light: #64748b;
-            --color-border: #e2e8f0;
-            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            --color-primary: #FFD700;
+            --color-secondary: #FF4444;
+            --color-dark: #0a0a15;
+            --color-light: #1e1e2e;
+            --color-text: #e0e0e0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+                * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                }
 
         body {
-            font-family: var(--font-family);
-            line-height: 1.6;
-            color: var(--color-text);
-            background-color: var(--color-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
         }
 
-        /* Navigation */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
+        /* Lightning Effect */
+        .lightning {
+            position: relative;
+            display: block; /* center the lightning block */
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--color-secondary);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--color-text);
-            font-weight: 500;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            color: var(--color-primary);
-        }
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--color-text);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 150px 2rem 100px;
-            text-align: center;
-            margin-top: 70px;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            animation: fadeInUp 1s ease;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            animation: fadeInUp 1.2s ease;
-        }
-
-        .btn {
-            padding: 0.875rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: white;
-            color: var(--color-primary);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: var(--color-primary);
-        }
-
-        /* Services Section */
-        .services {
-            padding: 80px 2rem;
-            background: var(--color-bg-alt);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-text);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--color-text-light);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
             text-align: center;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        .lightning::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            width: 110%;
+            height: 110%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 212, 0, 0.3) 2px,
+                rgba(255, 212, 0, 0.3) 4px
+            );
+            pointer-events: none;
+            animation: spark 0.5s ease-in-out infinite;
         }
 
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        @keyframes spark {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
 
-        .service-card h3 {
-            margin-bottom: 1rem;
-            color: var(--color-text);
-        }
-
-        .service-card p {
-            color: var(--color-text-light);
-            line-height: 1.6;
-        }
-
-        /* Projects Section */
-        .projects {
-            padding: 80px 2rem;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 12px;
+        header {
+            background: linear-gradient(135deg, var(--color-dark) 0%, #2d2d44 100%);
+            color: var(--color-primary);
+            padding: 40px 20px;
+            box-shadow: 0 4px 15px rgba(255, 212, 0, 0.3);
+            border-bottom: 3px solid var(--color-secondary);
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        header::before {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 120px;
+            background: none;
+            background-size: contain;
+            opacity: 0.15;
+            pointer-events: none;
         }
 
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        header h1 {
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(255, 68, 68, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-section {
+            font-size: 0.9em;
+            opacity: 0.95;
+            margin-top: 0;
+            position: relative;
+            z-index: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: white;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-tag {
+        .logo-text {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: var(--color-bg-alt);
             color: var(--color-primary);
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.75rem;
+            font-weight: bold;
+            margin: 0 5px;
         }
 
-        .project-card h3 {
-            margin-bottom: 0.75rem;
-            color: var(--color-text);
-        }
-
-        .project-card p {
-            color: var(--color-text-light);
-            margin-bottom: 1rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: var(--color-primary);
-            color: white;
-            padding: 60px 2rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h2 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 2rem;
-            background: var(--color-bg-alt);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
+        .logo-placeholder {
+            width: 160px;
+            height: auto;
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            background: transparent;
+            border: none;
         }
 
-        .contact-item {
+        .logo-placeholder img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Logo Styles */
+        .logo-top {
+            padding: 0;
+            display: none;
+        }
+
+        .ellectra-logo {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(255, 212, 0, 0.3));
+        }
+
+        /* Pop animation for Ellectra logos */
+        @keyframes ellectra-pop {
+            0% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(255,212,0,0.25)); }
+            30% { transform: scale(1.12); filter: drop-shadow(0 10px 30px rgba(255,212,0,0.25)); }
+            60% { transform: scale(0.98); filter: drop-shadow(0 4px 12px rgba(255,212,0,0.18)); }
+            100% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(255,212,0,0.25)); }
+        }
+
+        /* Animate only the centered Ellectra logo */
+        .ellectra-logo-center {
+            transform-origin: center;
+            animation: ellectra-pop 2.2s ease-in-out infinite;
+            will-change: transform, filter;
+        }
+
+        .logo-bottom {
+            padding: 0;
+            display: none;
+        }
+
+        .ellectra-logo-footer {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(255, 212, 0, 0.3));
+        }
+
+        /* Ellectra clickable box styles */
+        .ellectra-box {
+            display: block;
+            max-width: 760px;
+            margin: 20px auto 0;
+            border-radius: 14px;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, rgba(255,212,0,0.04) 0%, rgba(255,68,68,0.02) 100%);
+            border: 2px solid rgba(255,212,0,0.10);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .ellectra-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            border-color: rgba(255,212,0,0.25);
+        }
+
+        .ellectra-box-inner {
             display: flex;
-            align-items: start;
-            gap: 1rem;
+            align-items: center;
+            gap: 16px;
         }
 
-        .contact-icon {
-            font-size: 1.5rem;
+        .ellectra-logo-box {
+            height: 140px;
+            width: auto;
+            display: block;
+        }
+
+        .ellectra-box-title {
+            font-weight: 800;
             color: var(--color-primary);
-            margin-top: 0.25rem;
+            font-size: 1.05em;
         }
 
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: 500;
-            color: var(--color-text);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 0.875rem;
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            font-family: var(--font-family);
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--color-primary);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .btn-submit {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .btn-submit:hover {
-            background: var(--color-primary-dark);
+        .ellectra-box-sub {
+            color: #c8c8c8;
+            font-size: 0.95em;
+            margin-top: 4px;
         }
 
         /* Footer */
         footer {
-            background: var(--color-text);
-            color: white;
+            background: linear-gradient(135deg, var(--color-dark) 0%, #2d2d44 100%);
+            color: var(--color-primary);
+            padding: 30px 20px;
             text-align: center;
-            padding: 2rem;
+            margin-top: 40px;
+            border-top: 3px solid var(--color-secondary);
+            box-shadow: 0 -4px 15px rgba(255, 212, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        footer::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            width: 100px;
+            height: 100px;
+            background: none;
+            background-size: contain;
+            opacity: 0.12;
+            pointer-events: none;
         }
 
-        /* Modal */
-        .modal {
+        footer p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Pages */
+        .page {
             display: none;
-            position: fixed;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Page */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(255, 212, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 212, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Intro note banner: subtle dark background with yellow border */
+        .intro-note {
+            background: linear-gradient(180deg, rgba(34,34,46,0.95) 0%, rgba(20,20,30,0.95) 100%);
+            padding: 28px 22px;
+            border-radius: 12px;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+            border: 4px solid var(--color-primary);
+        }
+
+        .intro-note .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-dark);
+            border-radius: 8px;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .intro-note .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.18);
+            border-radius: 8px;
+            padding: 10px 14px;
+            text-decoration: none;
+        }
+
+        .form-section h2 {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #ff9500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section h2::before {
+            content: '⚡';
+            color: var(--color-primary);
+            font-size: 1.2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255, 212, 0, 0.2);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 15, 30, 0.8);
+            color: #e0e0e0;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 20px rgba(255, 212, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 212, 0, 0.05);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            min-width: 150px;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
         }
 
-        .modal.active {
-            display: flex;
+        button:hover::before {
+            left: 100%;
         }
 
-        .modal-content {
-            background: white;
-            padding: 2rem;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #ffc700 100%);
+            color: var(--color-dark);
+            box-shadow: 0 4px 15px rgba(255, 212, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 212, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #ff2222 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 68, 68, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-dark);
+            border: 2px solid var(--color-dark);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-dark);
+            color: white;
+        }
+
+        /* Services Page */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.8) 0%, rgba(20, 20, 35, 0.8) 100%);
+            padding: 25px;
             border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            animation: fadeInUp 0.3s ease;
+            border-left: 5px solid var(--color-primary);
+            box-shadow: 0 8px 32px rgba(255, 212, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid rgba(255, 212, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
 
-        .modal-content h2 {
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--color-secondary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 212, 0, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-card.selected {
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+            border-left-color: var(--color-secondary);
+            box-shadow: 0 0 25px rgba(255, 68, 68, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 68, 68, 0.5);
+        }
+
+        .service-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 15px;
             color: var(--color-secondary);
-            margin-bottom: 1rem;
+            font-size: 1.8em;
+            font-weight: bold;
         }
 
-        .modal-close {
-            margin-top: 1.5rem;
+        .service-card p {
+            color: #a0a0a0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            background: var(--color-secondary);
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .services-header {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--color-secondary);
+            border: 2px solid rgba(255, 68, 68, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .services-header h2 {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .project-options {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--color-primary);
+            border: 2px solid rgba(255, 212, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-options h3 {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #ffa500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .option-buttons button {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Checkbox for custom project */
+        .custom-project-section {
+            display: none;
+            background: rgba(255, 212, 0, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px dashed rgba(255, 212, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .custom-project-section.show {
+            display: block;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Projects Showcase */
+        .projects-showcase {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--color-secondary);
+            border: 2px solid rgba(255, 68, 68, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .projects-showcase h3 {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-item {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.85) 0%, rgba(20, 20, 35, 0.85) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 212, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 212, 0, 0.3);
+            border-color: var(--color-secondary);
+        }
+
+        .project-item h4 {
+            color: var(--color-primary);
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .project-item p {
+            color: #a0a0a0;
+            font-size: 0.9em;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .project-item .project-tech {
+            font-size: 0.85em;
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+
+        .projects-showcase.hidden {
+            display: none;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #ffc700 100%);
+            color: var(--color-dark);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            header h1 {
+                font-size: 1.8em;
             }
 
-            .nav-menu.active {
-                display: flex;
+            .form-section {
+                padding: 20px;
             }
 
-            .nav-toggle {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .cta-buttons {
+            .button-group {
                 flex-direction: column;
             }
 
-            .contact-grid {
+            button {
+                min-width: 100%;
+            }
+
+            .services-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">Tech<span>Venture</span></a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Header with Logo -->
+    <header>
+        <div class="lightning">
+            <h1>⚡ TechVenture ⚡</h1>
+        </div>
+        <div class="logo-section">
+            <span class="logo-text">🔌 Powered by</span>
+            <div class="logo-placeholder">
+                <!-- Put the logo file next to this HTML or in an `assets/` folder and update the path below -->
+                <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra logo" class="ellectra-logo">
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Your Complete Academic Project Partner</h1>
-            <p>India's trusted project center for engineering, diploma, and science students. Get expert guidance, ready-made projects, custom development, and 24/7 support for all your academic project needs.</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Get Free Consultation</a>
-                <a href="#services" class="btn btn-secondary">Explore Services</a>
-            </div>
-            <div style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.9;">
-                ✅ Fast Delivery | 💯 Quality Assured | 📞 24/7 Support | 🎓 Expert Guidance
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
+    <!-- Page 1: Contact Form -->
+    <div id="formPage" class="page active">
         <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">Complete project solutions for engineering students</p>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3>Mini &amp; Final Year Projects</h3>
-                    <p>Complete mini projects and final year projects across all domains with full support and guidance.</p>
+            <div class="form-area">
+                <!-- Intro note (red / yellow / black background) -->
+                <div class="intro-note" style="margin-bottom:20px;">
+                    <h2 style="margin-bottom:8px; font-size:2em;">Your Complete Academic Project Partner</h2>
+                    <p style="margin:0 auto 16px; max-width:800px; color:#fff; opacity:0.95; line-height:1.5;"> Trusted project center for engineering, diploma, and science students. Get expert guidance, ready-made projects, custom development, and 24/7 support for all your academic project needs.</p>
+                    <div style="display:flex;gap:12px;justify-content:center;margin-top:14px;">
+                        <button type="button" class="btn-secondary" onclick="goToServices()" style="max-width:220px;display:inline-block;text-align:center;">📋 View Services</button>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3>Hardware Projects</h3>
-                    <p>IoT, robotics, embedded systems, ESP32, Arduino projects with implementation support.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">💻</div>
-                    <h3>Software Projects</h3>
-                    <p>Web development, mobile apps, machine learning, AI projects with coding assistance.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📝</div>
-                    <h3>Documentation &amp; Reports</h3>
-                    <p>Professional documentation, research paper support, IEEE format reports, and project write-ups.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎯</div>
-                    <h3>IEEE Project Support</h3>
-                    <p>Latest IEEE base papers, implementation guidance, and publication support for research projects.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">⚡</div>
-                    <h3>Ready-Made Projects</h3>
-                    <p>Pre-built projects with complete code, documentation, and demo videos for quick delivery.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🛠️</div>
-                    <h3>Custom Development</h3>
-                    <p>Tailored project solutions based on your specific domain requirements and deadlines.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎓</div>
-                    <h3>Workshops &amp; Training</h3>
-                    <p>IoT workshops, coding bootcamps, and hands-on training programs on latest technologies.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3>Project Kits</h3>
-                    <p>Arduino kits, ESP32 IoT kits, sensor kits, robotics kits with code templates included.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">Showcase of successful projects delivered</p>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">🏠</div>
-                    <div class="project-content">
-                        <span class="project-tag">IoT</span>
-                        <h3>Smart Home Automation</h3>
-                        <p>ESP32-based 4-channel relay system for controlling home appliances via WiFi with mobile app integration.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">🚗</div>
-                    <div class="project-content">
-                        <span class="project-tag">Robotics</span>
-                        <h3>Autonomous Navigation Robot</h3>
-                        <p>Self-driving robot with ultrasonic sensors, camera vision, and obstacle avoidance algorithms.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">🌱</div>
-                    <div class="project-content">
-                        <span class="project-tag">Agriculture</span>
-                        <h3>Smart Irrigation System</h3>
-                        <p>Automated watering system with soil moisture monitoring and weather-based scheduling.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">🔐</div>
-                    <div class="project-content">
-                        <span class="project-tag">Security</span>
-                        <h3>Face Recognition Door Lock</h3>
-                        <p>ESP32-CAM based smart door lock with face detection and mobile notifications.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">⚡</div>
-                    <div class="project-content">
-                        <span class="project-tag">Energy</span>
-                        <h3>Power Monitoring System</h3>
-                        <p>Real-time electricity consumption tracking with cloud analytics and cost optimization.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">🏥</div>
-                    <div class="project-content">
-                        <span class="project-tag">Healthcare</span>
-                        <h3>Patient Monitoring System</h3>
-                        <p>Wearable health tracker with heart rate, temperature monitoring and emergency alerts.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="form-section" style="flex:1;">
+                    <h2>Project Inquiry Form</h2>
+                    
+                    <div id="successMessage" class="success-message"></div>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h2 id="projectCount">0</h2>
-                    <p>Projects Completed</p>
-                </div>
-                <div class="stat-item">
-                    <h2 id="studentCount">0</h2>
-                    <p>Students Consulted</p>
-                </div>
-                <div class="stat-item">
-                    <h2 id="mentorCount">0</h2>
-                    <p>Expert Mentors</p>
-                </div>
-                <div class="stat-item">
-                    <h2 id="satisfactionRate">0%</h2>
-                    <p>Satisfaction Rate</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Let's discuss your project requirements</p>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <h4>Address</h4>
-                            <p>Meenakshi sundrajan engineering college<br> kodambakkam ,Chennai, Tamil Nadu</p>
+                    <form id="projectForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>to be added soon <br>to be added soon</p>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div>
-                            <h4>Phone / WhatsApp</h4>
-                            <p>+91 not yet<br>+91 not yet</p>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div>
-                            <h4>Working Hours</h4>
-                            <p>Monday - Saturday<br>9:00 AM - 7:00 PM</p>
+
+                        <div class="form-group">
+                            <label for="college">College/Institution *</label>
+                            <input type="text" id="college" name="college" required placeholder="Enter your college name">
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            <label for="degree">Degree</label>
+                            <select id="degree" name="degree" onchange="populateCourses()">
+                                <option value="">-- Select Degree (optional) --</option>
+                                <option value="B.E./B.Tech">B.E./B.Tech</option>
+                                <option value="M.E./M.Tech">M.E./M.Tech</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="BCA/B.Sc CS">BCA / B.Sc (CS)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="course">Course / Branch</label>
+                            <select id="course" name="course" disabled>
+                                <option value="">-- Select Course (optional) --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Selected Service</label>
+                            <input type="text" id="service" name="service" readonly placeholder="Service will appear here after selection">
+                        </div>
+
+                        <!-- recipient selection removed — messages will be sent to all configured owners by default -->
+
+                        <div class="form-group">
+                            <label for="projectDetails">Project Details *</label>
+                            <textarea id="projectDetails" name="projectDetails" required placeholder="Enter your project details, requirements, or description..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="budget">Budget (Optional)</label>
+                            <input type="text" id="budget" name="budget" placeholder="Enter your budget range">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deadline">Deadline (Optional)</label>
+                            <input type="date" id="deadline" name="deadline">
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn-primary">
+                                🚀 Submit Inquiry
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xqaowpqr" method="POST">
-                    <input type="hidden" name="_subject" value="New contact from TechVenture website">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="course">Course</label>
-                        <input type="text" id="course" name="course" required placeholder="e.g., B.E CSE, Diploma EEE">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone / WhatsApp</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
-                    </div>
-                    <div class="form-group">
-                        <label for="domain">Project Domain</label>
-                        <select id="domain" name="domain" required class="form-control">
-                            <option value="">Select your domain</option>
-                            <option value="iot">IoT &amp; Embedded Systems</option>
-                            <option value="robotics">Robotics</option>
-                            <option value="web">Web Development</option>
-                            <option value="mobile">Mobile App Development</option>
-                            <option value="ml">Machine Learning / AI</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="deadline">Project Deadline</label>
-                        <input type="date" id="deadline" name="deadline" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Project Details</label>
-                        <textarea id="message" name="message" required placeholder="Tell us about your project requirements..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-submit">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
 
-    <!-- Partners Section -->
-    <section class="partners">
-        <div class="partners-container">
-            <h2>Our Partners</h2>
-            <p class="partners-subtitle">Buy products from our partner Ellectra</p>
-            <div class="partners-grid">
-                <div class="partner-card">
-                    <a href="https://www.ellectra.in/" target="_blank" rel="noopener noreferrer" class="partner-link">
-                        <img src="Ellectra_w01wap.png" alt="Ellectra" class="partner-logo">
-                    </a>
+                <!-- Centered, larger Ellectra box below the form -->
+            </div>
+            <a href="https://www.ellectra.in/" target="_blank" rel="noopener noreferrer" class="ellectra-box">
+                <div class="ellectra-box-inner" style="flex-direction:column; text-align:center;">
+                    <div class="ellectra-box-title" style="font-size:1.05em;">Buy products — Electrical&Electronics</div>
+                    <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra" class="ellectra-logo-box ellectra-logo-center" style="margin-top:8px;">
+                    <div class="ellectra-box-sub" style="margin-top:8px;">Quality product with best price</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partner Styles -->
-    <style>
-        .partners {
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border-top: 1px solid var(--color-border);
-        }
-
-        .partners-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .partners h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--color-text);
-        }
-
-        .partners-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--color-text-light);
-            margin-bottom: 3rem;
-            font-weight: 500;
-        }
-
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            align-items: center;
-            justify-items: center;
-        }
-
-        .partner-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--color-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .partner-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .partner-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .partner-logo {
-            max-width: 150px;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .partner-link:hover .partner-logo {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 768px) {
-            .partners h2 {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .partners-subtitle {
-                font-size: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .partners-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .partner-card {
-                padding: 1.5rem;
-            }
-
-            .partner-logo {
-                max-width: 120px;
-            }
-        }
-    </style>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 TechVenture Project Center. All rights reserved.</p>
-        <p>Empowering Innovation | Building Tomorrow</p>
-    </footer>
-
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <h2>✅ Message Sent Successfully!</h2>
-            <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
-            <button class="btn btn-primary modal-close" onclick="closeModal()">Close</button>
+            </a>
         </div>
     </div>
 
+    <!-- Page 2: Services Selection -->
+    <div id="servicesPage" class="page">
+        <div class="container">
+            <button class="btn-secondary back-button" onclick="goToForm()">← Back to Form</button>
+
+            <div class="services-header">
+                <h2>⚡ Our Services</h2>
+                <p>Select a service below to add it to your form, or continue with custom project details</p>
+            </div>
+
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be generated here -->
+            </div>
+
+            <div class="project-options">
+                <h3>What would you like to do?</h3>
+                <div class="option-buttons">
+                    <button type="button" class="btn-primary" onclick="useSelectedService()">
+                        ✓ Use Selected Service
+                    </button>
+                    <button type="button" class="btn-outline" onclick="useCustomProject()">
+                        ✎ Continue with Custom Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="custom-project-section" id="customProjectSection">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="confirmCustom" onchange="toggleCustomConfirm()">
+                    <label for="confirmCustom">I want to provide my own project details</label>
+                </div>
+                <button type="button" class="btn-primary" id="confirmCustomBtn" onclick="goToFormWithCustom()" disabled>
+                    Proceed with Custom Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>⚡ TechVenture - Your Project Solution Partner ⚡</strong></p>
+        <p>📍 Chennai, Tamil Nadu | 📧 ellectra2025@gmail.com</p>
+        <p>🔌 Powered by <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra logo" class="ellectra-logo-footer" style="vertical-align:middle; margin:0 8px;"> | Quality Projects, Fast Delivery</p>
+        <p style="margin-top: 15px; font-size: 0.85em; opacity: 0.8;">© 2025 TechVenture. All rights reserved.</p>
+    </footer>
+
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+        // Services Data
+        const services = [
+            {
+                id: 1,
+                name: "IoT & Embedded Systems",
+                description: "ESP32, Arduino projects with WiFi connectivity, sensor integration, and real-time monitoring systems"
+            },
+            {
+                id: 2,
+                name: "Robotics & Automation",
+                description: "Self-driving robots, obstacle avoidance, automated systems with computer vision and sensor fusion"
+            },
+            {
+                id: 3,
+                name: "Web Development",
+                description: "Full-stack web applications, responsive design, backend APIs, and cloud integration"
+            },
+            {
+                id: 4,
+                name: "Machine Learning & AI",
+                description: "ML models, neural networks, face recognition, predictive analytics, and AI implementations"
+            },
+            {
+                id: 5,
+                name: "Mobile App Development",
+                description: "Android apps, iOS apps, cross-platform solutions with database connectivity"
+            },
+            {
+                id: 6,
+                name: "Documentation & Reports",
+                description: "IEEE format reports, research papers, project documentation, and technical write-ups"
             }
-        });
+        ];
 
-        // Mobile menu toggle
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('navMenu');
+        // WhatsApp recipients (international format, digits only)
+        const WHATSAPP_NUMBERS = {
+            owner1: "916381733447",  // +91 63817 33447
+            owner2: "919445641966"   // +91 9445641966
+        };
 
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
+        const OWNER_NAMES = {
+            owner1: "Girish",       // Replace with NAME 1
+            owner2: "iyaappan"        // Replace with NAME 2
+        };
 
-        // Smooth scrolling
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-                
-                // Close mobile menu
-                navMenu.classList.remove('active');
-            });
-        });
+        let selectedService = null;
 
-        // Counter animation
-        function animateCounter(id, target, suffix = '') {
-            let current = 0;
-            const increment = target / 100;
-            const element = document.getElementById(id);
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target + suffix;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current) + suffix;
-                }
-            }, 20);
+        // Initialize Services Grid
+        function initializeServices() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = services.map(service => `
+                <div class="service-card" onclick="selectService(${service.id})">
+                    <h3>⚡ ${service.name}</h3>
+                    <p>${service.description}</p>
+                </div>
+            `).join('');
         }
 
-        // Trigger counter animation when stats section is visible
-        let countersAnimated = false;
-        window.addEventListener('scroll', function() {
-            const statsSection = document.querySelector('.stats');
-            const statsPosition = statsSection.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
+        // Select Service
+        function selectService(serviceId) {
+            selectedService = services.find(s => s.id === serviceId);
             
-            if (statsPosition < screenPosition && !countersAnimated) {
-                animateCounter('projectCount', 12);
-                animateCounter('studentCount', 3);
-                animateCounter('mentorCount', 8);
-                animateCounter('satisfactionRate', 98, '%');
-                countersAnimated = true;
+            // Update UI
+            document.querySelectorAll('.service-card').forEach((card, index) => {
+                if (services[index].id === serviceId) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+        }
+
+        // Use Selected Service
+        function useSelectedService() {
+            if (!selectedService) {
+                alert('Please select a service first!');
+                return;
             }
-        });
 
-        // Contact form submission
-        const contactForm = document.getElementById('contactForm');
-        const successModal = document.getElementById('successModal');
+            document.getElementById('service').value = selectedService.name;
+            document.getElementById('projectDetails').focus();
+            goToForm();
+        }
 
-        contactForm.addEventListener('submit', function(e) {
+        // Use Custom Project
+        function useCustomProject() {
+            document.getElementById('customProjectSection').classList.add('show');
+        }
+
+        // Toggle Custom Confirm
+        function toggleCustomConfirm() {
+            const btn = document.getElementById('confirmCustomBtn');
+            btn.disabled = !document.getElementById('confirmCustom').checked;
+        }
+
+        // Go to Form with Custom
+        function goToFormWithCustom() {
+            document.getElementById('service').value = 'Custom Project';
+            goToForm();
+        }
+
+        // Navigation
+        function goToServices() {
+            document.getElementById('formPage').classList.remove('active');
+            document.getElementById('servicesPage').classList.add('active');
+            initializeServices();
+        }
+
+        function goToForm() {
+            document.getElementById('servicesPage').classList.remove('active');
+            document.getElementById('formPage').classList.add('active');
+            document.getElementById('customProjectSection').classList.remove('show');
+            document.getElementById('confirmCustom').checked = false;
+        }
+
+        // Courses per degree mapping and helper to populate course options
+        const COURSES_BY_DEGREE = {
+            'B.E./B.Tech': ['Computer Science', 'Electronics & Communication', 'Electrical', 'Mechanical', 'Civil', 'Information Technology', 'Instrumentation'],
+            'M.E./M.Tech': ['Computer Science', 'VLSI', 'Power Systems', 'Thermal', 'Structural'],
+            'Diploma': ['EEE', 'ECE', 'Mechanical', 'Civil', 'IT'],
+            'B.Sc': ['Physics', 'Electronics', 'Computer Science'],
+            'BCA/B.Sc CS': ['BCA', 'B.Sc (CS)'],
+            'Other': ['Other']
+        };
+
+        function populateCourses() {
+            const deg = document.getElementById('degree') ? document.getElementById('degree').value : '';
+            const courseSelect = document.getElementById('course');
+            if (!courseSelect) return;
+            courseSelect.innerHTML = '<option value="">-- Select Course (optional) --</option>';
+            if (!deg) {
+                courseSelect.disabled = true;
+                return;
+            }
+            const list = COURSES_BY_DEGREE[deg] || [];
+            list.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c;
+                opt.textContent = c;
+                courseSelect.appendChild(opt);
+            });
+            courseSelect.disabled = false;
+        }
+
+        // Form Submission (sends a prefilled message to WhatsApp via wa.me)
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Submit form data to Formspree
-            const formData = new FormData(contactForm);
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                college: document.getElementById('college').value,
+                degree: document.getElementById('degree') ? document.getElementById('degree').value : '',
+                course: document.getElementById('course') ? document.getElementById('course').value : '',
+                service: document.getElementById('service').value,
+                projectDetails: document.getElementById('projectDetails').value,
+                budget: document.getElementById('budget').value,
+                deadline: document.getElementById('deadline').value
+            };
 
-            fetch(contactForm.action, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Show success modal and reset
-                    successModal.classList.add('active');
-                    contactForm.reset();
-                } else {
-                    response.json().then(data => {
-                        const errorMsg = (data && data.error) ? data.error : 'Error submitting form.';
-                        alert(errorMsg + ' Please try again later.');
-                    }).catch(() => {
-                        alert('Error submitting form. Please try again later.');
-                    });
+            // Build the message to send
+            const message = `New Inquiry from TechVenture Portal\n` +
+                `Name: ${formData.name}\n` +
+                `Email: ${formData.email}\n` +
+                `Phone: ${formData.phone}\n` +
+                `College: ${formData.college}\n` +
+                `Degree: ${formData.degree}\n` +
+                `Course: ${formData.course}\n` +
+                `Service: ${formData.service}\n` +
+                `Details: ${formData.projectDetails}\n` +
+                `Budget: ${formData.budget}\n` +
+                `Deadline: ${formData.deadline}`;
+
+            const encoded = encodeURIComponent(message);
+
+            // Send to all configured WhatsApp owners by default
+            const recipients = [];
+            if (typeof WHATSAPP_NUMBERS !== 'undefined') {
+                for (const key in WHATSAPP_NUMBERS) {
+                    if (!Object.prototype.hasOwnProperty.call(WHATSAPP_NUMBERS, key)) continue;
+                    const raw = WHATSAPP_NUMBERS[key];
+                    const phoneDigits = String(raw).replace(/\D/g, '');
+                    if (phoneDigits) recipients.push({ key, phone: phoneDigits });
                 }
-            })
-            .catch(() => {
-                alert('Network error. Please check your connection and try again.');
+            }
+
+            if (!recipients.length) {
+                alert('No WhatsApp recipient numbers are configured.');
+                return;
+            }
+
+            // Open a wa.me chat for each recipient (stagger slightly to avoid popup blockers)
+            recipients.forEach((r, idx) => {
+                const waUrl = `https://wa.me/${r.phone}?text=${encoded}`;
+                if (idx === 0) {
+                    window.open(waUrl, '_blank');
+                } else {
+                    setTimeout(() => window.open(waUrl, '_blank'), idx * 300);
+                }
             });
-        });
 
-        function closeModal() {
-            successModal.classList.remove('active');
-        }
+            // Show confirmation listing recipients
+            const successMsg = document.getElementById('successMessage');
+            const names = recipients.map(r => (typeof OWNER_NAMES !== 'undefined' ? (OWNER_NAMES[r.key] || r.key) : r.key)).join(', ');
+            successMsg.textContent = `Opening WhatsApp to ${names}... please send the messages to complete inquiry.`;
+            successMsg.classList.add('show');
 
-        // Close modal when clicking outside
-        successModal.addEventListener('click', function(e) {
-            if (e.target === successModal) {
-                closeModal();
+            // Reset form visually (but not required)
+            this.reset();
+            document.getElementById('service').value = '';
+            if (document.getElementById('degree')) document.getElementById('degree').selectedIndex = 0;
+            if (document.getElementById('course')) {
+                document.getElementById('course').selectedIndex = 0;
+                document.getElementById('course').disabled = true;
             }
-        });
 
-        // CTA button smooth scroll
-        document.querySelectorAll('.btn').forEach(button => {
-            if (button.getAttribute('href') && button.getAttribute('href').startsWith('#')) {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-                    
-                    if (targetSection) {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            }
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 6000);
         });
     </script>
 </body>
 </html>
-
