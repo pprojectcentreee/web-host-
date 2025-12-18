@@ -7,11 +7,18 @@
     <title>TechVenture - Project Services</title>
     <style>
         :root {
-            --color-primary: #FFD700;
-            --color-secondary: #FF4444;
-            --color-dark: #0a0a15;
-            --color-light: #1e1e2e;
-            --color-text: #e0e0e0;
+            --color-primary: #FFB300; /* warm yellow (accent) */
+            --color-primary-rgb: 255,179,0;
+            --color-secondary: #FF4444; /* accent red */
+            --color-secondary-rgb: 255,68,68;
+
+            /* Light theme palette */
+            --bg-start: #FFFFFF;
+            --bg-end: #FBFBFD;
+            --panel-bg-start: rgba(255,255,255,0.98);
+            --panel-bg-end: rgba(250,250,252,0.98);
+            --muted-text: #102328;
+            --muted-muted: #66757f;
         }
 
                 * {
@@ -22,8 +29,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
-            color: #e0e0e0;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            color: var(--muted-text);
             overflow-x: hidden;
         }
 
@@ -36,21 +43,8 @@
         }
 
         .lightning::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: -5px;
-            width: 110%;
-            height: 110%;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 2px,
-                rgba(255, 212, 0, 0.3) 2px,
-                rgba(255, 212, 0, 0.3) 4px
-            );
-            pointer-events: none;
-            animation: spark 0.5s ease-in-out infinite;
+            content: none;
+            display: none;
         }
 
         @keyframes spark {
@@ -59,18 +53,79 @@
         }
 
         header {
-            background: linear-gradient(135deg, var(--color-dark) 0%, #2d2d44 100%);
-            color: var(--color-primary);
-            padding: 40px 20px;
-            box-shadow: 0 4px 15px rgba(255, 212, 0, 0.3);
-            border-bottom: 3px solid var(--color-secondary);
+            background: linear-gradient(135deg, var(--panel-bg-start) 0%, var(--panel-bg-end) 100%);
+            color: var(--muted-text);
+            padding: 24px 16px;
+            box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.06);
+            border-bottom: 1px solid rgba(var(--color-secondary-rgb), 0.06);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 8px;
+        }
+
+        /* Centered header logo for the top area */
+        .header-logo-centered {
+            height: 120px;
+            width: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            object-fit: contain;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .header-logo-inline {
+            height: 110px;
+            width: auto;
+            display: block;
+            border-radius: 6px;
+            object-fit: contain;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+        }
+
+        .title-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0b2130; /* dark/black suitable for white background */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .powered-by {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .powered-by .logo-placeholder {
+            width: 120px;
+            padding: 0;
+        }
+
+        .powered-by {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 2px;
+        }
+
+        .powered-by .logo-placeholder {
+            width: 140px;
+            height: auto;
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         header::before {
@@ -92,7 +147,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(255, 68, 68, 0.5);
+            text-shadow: 2px 2px 4px rgba(var(--color-secondary-rgb), 0.5);
             position: relative;
             z-index: 1;
         }
@@ -144,15 +199,15 @@
         .ellectra-logo {
             height: 60px;
             width: auto;
-            filter: drop-shadow(0 2px 4px rgba(255, 212, 0, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb), 0.3));
         }
 
         /* Pop animation for Ellectra logos */
         @keyframes ellectra-pop {
-            0% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(255,212,0,0.25)); }
-            30% { transform: scale(1.12); filter: drop-shadow(0 10px 30px rgba(255,212,0,0.25)); }
-            60% { transform: scale(0.98); filter: drop-shadow(0 4px 12px rgba(255,212,0,0.18)); }
-            100% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(255,212,0,0.25)); }
+            0% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb),0.25)); }
+            30% { transform: scale(1.12); filter: drop-shadow(0 10px 30px rgba(var(--color-primary-rgb),0.25)); }
+            60% { transform: scale(0.98); filter: drop-shadow(0 4px 12px rgba(var(--color-primary-rgb),0.18)); }
+            100% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb),0.25)); }
         }
 
         /* Animate only the centered Ellectra logo */
@@ -170,7 +225,7 @@
         .ellectra-logo-footer {
             height: 50px;
             width: auto;
-            filter: drop-shadow(0 2px 4px rgba(255, 212, 0, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb), 0.3));
         }
 
         /* Ellectra clickable box styles */
@@ -180,17 +235,18 @@
             margin: 20px auto 0;
             border-radius: 14px;
             padding: 18px 20px;
-            background: linear-gradient(135deg, rgba(255,212,0,0.04) 0%, rgba(255,68,68,0.02) 100%);
-            border: 2px solid rgba(255,212,0,0.10);
+            background: linear-gradient(135deg, #07080a 0%, #151521 100%);
+            border: 1px solid rgba(255,255,255,0.06);
             text-decoration: none;
-            color: inherit;
+            color: #e6eef6;
             transition: transform 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
         }
 
         .ellectra-box:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-            border-color: rgba(255,212,0,0.25);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.7);
+            border-color: rgba(var(--color-primary-rgb),0.25);
         }
 
         .ellectra-box-inner {
@@ -219,13 +275,13 @@
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--color-dark) 0%, #2d2d44 100%);
-            color: var(--color-primary);
+            background: linear-gradient(135deg, var(--panel-bg-end) 0%, var(--panel-bg-start) 100%);
+            color: var(--muted-text);
             padding: 30px 20px;
             text-align: center;
             margin-top: 40px;
-            border-top: 3px solid var(--color-secondary);
-            box-shadow: 0 -4px 15px rgba(255, 212, 0, 0.3);
+            border-top: 1px solid rgba(var(--color-secondary-rgb), 0.06);
+            box-shadow: 0 -4px 15px rgba(var(--color-primary-rgb), 0.06);
             position: relative;
             overflow: hidden;
         }
@@ -276,8 +332,8 @@
             background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(255, 212, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 212, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(var(--color-primary-rgb), 0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -311,7 +367,7 @@
         }
 
         .form-section h2 {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #ff9500 100%);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -342,7 +398,7 @@
         input, textarea, select {
             width: 100%;
             padding: 12px;
-            border: 2px solid rgba(255, 212, 0, 0.2);
+            border: 2px solid rgba(var(--color-primary-rgb), 0.2);
             border-radius: 8px;
             font-size: 1em;
             font-family: inherit;
@@ -354,8 +410,8 @@
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--color-primary);
-            box-shadow: 0 0 20px rgba(255, 212, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            background-color: rgba(255, 212, 0, 0.05);
+            box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            background-color: rgba(var(--color-primary-rgb), 0.05);
         }
 
         textarea {
@@ -402,25 +458,25 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #ffc700 100%);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             color: var(--color-dark);
-            box-shadow: 0 4px 15px rgba(255, 212, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 212, 0, 0.5);
+            box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.5);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, var(--color-secondary) 0%, #ff2222 100%);
+            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+            box-shadow: 0 4px 15px rgba(var(--color-secondary-rgb), 0.3);
         }
 
         .btn-secondary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 68, 68, 0.5);
+            box-shadow: 0 6px 20px rgba(var(--color-secondary-rgb), 0.5);
         }
 
         .btn-outline {
@@ -447,11 +503,11 @@
             padding: 25px;
             border-radius: 12px;
             border-left: 5px solid var(--color-primary);
-            box-shadow: 0 8px 32px rgba(255, 212, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.05);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            border: 1px solid rgba(255, 212, 0, 0.2);
+            border: 1px solid rgba(var(--color-primary-rgb), 0.2);
             backdrop-filter: blur(10px);
         }
 
@@ -469,7 +525,7 @@
 
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 212, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.2);
         }
 
         .service-card:hover::before {
@@ -486,10 +542,10 @@
         }
 
         .service-card.selected {
-            background: linear-gradient(135deg, rgba(255, 68, 68, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(var(--color-secondary-rgb), 0.1) 0%, rgba(var(--color-secondary-rgb), 0.05) 100%);
             border-left-color: var(--color-secondary);
-            box-shadow: 0 0 25px rgba(255, 68, 68, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 68, 68, 0.5);
+            box-shadow: 0 0 25px rgba(var(--color-secondary-rgb), 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border-color: rgba(var(--color-secondary-rgb), 0.5);
         }
 
         .service-card.selected::after {
@@ -690,6 +746,19 @@
                 font-size: 1.8em;
             }
 
+            header {
+                flex-direction: column;
+                padding: 24px 16px;
+            }
+
+            .header-logo {
+                left: 12px;
+                top: 10px;
+                height: 52px;
+                margin-bottom: 8px;
+                transform: translateY(-4px);
+            }
+
             .form-section {
                 padding: 20px;
             }
@@ -711,13 +780,13 @@
 <body>
     <!-- Header with Logo -->
     <header>
-        <div class="lightning">
-            <h1>⚡ TechVenture ⚡</h1>
+        <div class="header-row">
+            <img src="https://github.com/pprojectcentreee/web-host-/blob/main/logo.jpeg" alt="TechVenture logo" class="header-logo-inline">
+            <div class="title-text">TECHVENTURE</div>
         </div>
-        <div class="logo-section">
+        <div class="powered-by">
             <span class="logo-text">🔌 Powered by</span>
             <div class="logo-placeholder">
-                <!-- Put the logo file next to this HTML or in an `assets/` folder and update the path below -->
                 <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra logo" class="ellectra-logo">
             </div>
         </div>
@@ -902,6 +971,22 @@
                 id: 6,
                 name: "Documentation & Reports",
                 description: "IEEE format reports, research papers, project documentation, and technical write-ups"
+            }
+            ,
+            {
+                id: 7,
+                name: "VLSI Design",
+                description: "Custom IC design, RTL (Verilog/VHDL), FPGA prototyping, ASIC flow support, and timing/power optimization"
+            },
+            {
+                id: 8,
+                name: "PCB Design",
+                description: "Schematic capture, multi-layer PCB layout, routing, DFx/DRC checks, Gerber/ODB++ fabrication files"
+            },
+            {
+                id: 9,
+                name: "3D Design",
+                description: "CAD modelling, 3D printing-ready STL/STEP files, mechanical assemblies and product enclosure design"
             }
         ];
 
