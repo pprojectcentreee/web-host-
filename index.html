@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -781,7 +780,7 @@
     <!-- Header with Logo -->
     <header>
         <div class="header-row">
-         
+            <img src="logo.jpeg" alt="TechVenture logo" class="header-logo-inline">
             <div class="title-text">TECHVENTURE</div>
         </div>
         <div class="powered-by">
@@ -1099,84 +1098,94 @@
             });
             courseSelect.disabled = false;
         }
+// Form Submission (WhatsApp + Formspree)
+document.getElementById('projectForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-        // Form Submission (sends a prefilled message to WhatsApp via wa.me)
-        document.getElementById('projectForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+    /* ---------- ADD THIS: SEND TO FORMSPREE ---------- */
+    fetch("https://formspree.io/f/xgowapng", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(this)
+    }).catch(err => console.error("Formspree error:", err));
+    /* ---------- END FORMSPREE ---------- */
 
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                college: document.getElementById('college').value,
-                degree: document.getElementById('degree') ? document.getElementById('degree').value : '',
-                course: document.getElementById('course') ? document.getElementById('course').value : '',
-                service: document.getElementById('service').value,
-                projectDetails: document.getElementById('projectDetails').value,
-                budget: document.getElementById('budget').value,
-                deadline: document.getElementById('deadline').value
-            };
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        college: document.getElementById('college').value,
+        degree: document.getElementById('degree') ? document.getElementById('degree').value : '',
+        course: document.getElementById('course') ? document.getElementById('course').value : '',
+        service: document.getElementById('service').value,
+        projectDetails: document.getElementById('projectDetails').value,
+        budget: document.getElementById('budget').value,
+        deadline: document.getElementById('deadline').value
+    };
 
-            // Build the message to send
-            const message = `New Inquiry from TechVenture Portal\n` +
-                `Name: ${formData.name}\n` +
-                `Email: ${formData.email}\n` +
-                `Phone: ${formData.phone}\n` +
-                `College: ${formData.college}\n` +
-                `Degree: ${formData.degree}\n` +
-                `Course: ${formData.course}\n` +
-                `Service: ${formData.service}\n` +
-                `Details: ${formData.projectDetails}\n` +
-                `Budget: ${formData.budget}\n` +
-                `Deadline: ${formData.deadline}`;
+    // Build the message to send
+    const message = `New Inquiry from TechVenture Portal\n` +
+        `Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n` +
+        `Phone: ${formData.phone}\n` +
+        `College: ${formData.college}\n` +
+        `Degree: ${formData.degree}\n` +
+        `Course: ${formData.course}\n` +
+        `Service: ${formData.service}\n` +
+        `Details: ${formData.projectDetails}\n` +
+        `Budget: ${formData.budget}\n` +
+        `Deadline: ${formData.deadline}`;
 
-            const encoded = encodeURIComponent(message);
+    const encoded = encodeURIComponent(message);
 
-            // Send to all configured WhatsApp owners by default
-            const recipients = [];
-            if (typeof WHATSAPP_NUMBERS !== 'undefined') {
-                for (const key in WHATSAPP_NUMBERS) {
-                    if (!Object.prototype.hasOwnProperty.call(WHATSAPP_NUMBERS, key)) continue;
-                    const raw = WHATSAPP_NUMBERS[key];
-                    const phoneDigits = String(raw).replace(/\D/g, '');
-                    if (phoneDigits) recipients.push({ key, phone: phoneDigits });
-                }
-            }
+    // Send to all configured WhatsApp owners
+    const recipients = [];
+    if (typeof WHATSAPP_NUMBERS !== 'undefined') {
+        for (const key in WHATSAPP_NUMBERS) {
+            if (!Object.prototype.hasOwnProperty.call(WHATSAPP_NUMBERS, key)) continue;
+            const raw = WHATSAPP_NUMBERS[key];
+            const phoneDigits = String(raw).replace(/\D/g, '');
+            if (phoneDigits) recipients.push({ key, phone: phoneDigits });
+        }
+    }
 
-            if (!recipients.length) {
-                alert('No WhatsApp recipient numbers are configured.');
-                return;
-            }
+    if (!recipients.length) {
+        alert('No WhatsApp recipient numbers are configured.');
+        return;
+    }
 
-            // Open a wa.me chat for each recipient (stagger slightly to avoid popup blockers)
-            recipients.forEach((r, idx) => {
-                const waUrl = `https://wa.me/${r.phone}?text=${encoded}`;
-                if (idx === 0) {
-                    window.open(waUrl, '_blank');
-                } else {
-                    setTimeout(() => window.open(waUrl, '_blank'), idx * 300);
-                }
-            });
+    // Open WhatsApp chats
+    recipients.forEach((r, idx) => {
+        const waUrl = `https://wa.me/${r.phone}?text=${encoded}`;
+        if (idx === 0) {
+            window.open(waUrl, '_blank');
+        } else {
+            setTimeout(() => window.open(waUrl, '_blank'), idx * 300);
+        }
+    });
 
-            // Show confirmation listing recipients
-            const successMsg = document.getElementById('successMessage');
-            const names = recipients.map(r => (typeof OWNER_NAMES !== 'undefined' ? (OWNER_NAMES[r.key] || r.key) : r.key)).join(', ');
-            successMsg.textContent = `Opening WhatsApp to ${names}... please send the messages to complete inquiry.`;
-            successMsg.classList.add('show');
+    // Show confirmation
+    const successMsg = document.getElementById('successMessage');
+    const names = recipients
+        .map(r => (typeof OWNER_NAMES !== 'undefined' ? (OWNER_NAMES[r.key] || r.key) : r.key))
+        .join(', ');
+    successMsg.textContent = `Opening WhatsApp to ${names}... please send the messages to complete inquiry.`;
+    successMsg.classList.add('show');
 
-            // Reset form visually (but not required)
-            this.reset();
-            document.getElementById('service').value = '';
-            if (document.getElementById('degree')) document.getElementById('degree').selectedIndex = 0;
-            if (document.getElementById('course')) {
-                document.getElementById('course').selectedIndex = 0;
-                document.getElementById('course').disabled = true;
-            }
+    // Reset form
+    this.reset();
+    document.getElementById('service').value = '';
+    if (document.getElementById('degree')) document.getElementById('degree').selectedIndex = 0;
+    if (document.getElementById('course')) {
+        document.getElementById('course').selectedIndex = 0;
+        document.getElementById('course').disabled = true;
+    }
 
-            setTimeout(() => {
-                successMsg.classList.remove('show');
-            }, 6000);
-        });
+    setTimeout(() => {
+        successMsg.classList.remove('show');
+    }, 6000);
+});
+
     </script>
 </body>
 </html>
