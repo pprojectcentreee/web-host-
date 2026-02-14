@@ -1,1194 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechVenture - Project Services</title>
-    <style>
-        :root {
-            --color-primary: #FFB300; /* warm yellow (accent) */
-            --color-primary-rgb: 255,179,0;
-            --color-secondary: #FF4444; /* accent red */
-            --color-secondary-rgb: 255,68,68;
-
-            /* Light theme palette */
-            --bg-start: #FFFFFF;
-            --bg-end: #FBFBFD;
-            --panel-bg-start: rgba(255,255,255,0.98);
-            --panel-bg-end: rgba(250,250,252,0.98);
-            --muted-text: #102328;
-            --muted-muted: #66757f;
-        }
-
-                * {
-                        margin: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
-            color: var(--muted-text);
-            overflow-x: hidden;
-        }
-
-        /* Lightning Effect */
-        .lightning {
-            position: relative;
-            display: block; /* center the lightning block */
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .lightning::before {
-            content: none;
-            display: none;
-        }
-
-        @keyframes spark {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--panel-bg-start) 0%, var(--panel-bg-end) 100%);
-            color: var(--muted-text);
-            padding: 24px 16px;
-            box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.06);
-            border-bottom: 1px solid rgba(var(--color-secondary-rgb), 0.06);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        /* Centered header logo for the top area */
-        .header-logo-centered {
-            height: 120px;
-            width: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 8px;
-            object-fit: contain;
-            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-        }
-
-        .header-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            justify-content: center;
-        }
-
-        .header-logo-inline {
-            height: 60px;
-            width: auto;
-            display: block;
-            border-radius: 6px;
-            object-fit: contain;
-            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-        }
-
-        .title-text {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #0b2130; /* dark/black suitable for white background */
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .powered-by {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .powered-by .logo-placeholder {
-            width: 120px;
-            padding: 0;
-        }
-
-        .powered-by {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 2px;
-        }
-
-        .powered-by .logo-placeholder {
-            width: 140px;
-            height: auto;
-            padding: 0;
-            background: transparent;
-            border: none;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 120px;
-            height: 120px;
-            background: none;
-            background-size: contain;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(var(--color-secondary-rgb), 0.5);
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo-section {
-            font-size: 0.9em;
-            opacity: 0.95;
-            margin-top: 0;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .logo-text {
-            display: inline-block;
-            color: var(--color-primary);
-            font-weight: bold;
-            margin: 0 5px;
-        }
-
-        .logo-placeholder {
-            width: 160px;
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5px;
-            background: transparent;
-            border: none;
-        }
-
-        .logo-placeholder img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        /* Logo Styles */
-        .logo-top {
-            padding: 0;
-            display: none;
-        }
-
-        .ellectra-logo {
-            height: 60px;
-            width: auto;
-            filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb), 0.3));
-        }
-
-        /* Pop animation for Ellectra logos */
-        @keyframes ellectra-pop {
-            0% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb),0.25)); }
-            30% { transform: scale(1.12); filter: drop-shadow(0 10px 30px rgba(var(--color-primary-rgb),0.25)); }
-            60% { transform: scale(0.98); filter: drop-shadow(0 4px 12px rgba(var(--color-primary-rgb),0.18)); }
-            100% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb),0.25)); }
-        }
-
-        /* Animate only the centered Ellectra logo */
-        .ellectra-logo-center {
-            transform-origin: center;
-            animation: ellectra-pop 2.2s ease-in-out infinite;
-            will-change: transform, filter;
-        }
-
-        .logo-bottom {
-            padding: 0;
-            display: none;
-        }
-
-        .ellectra-logo-footer {
-            height: 50px;
-            width: auto;
-            filter: drop-shadow(0 2px 4px rgba(var(--color-primary-rgb), 0.3));
-        }
-
-        /* Ellectra clickable box styles */
-        .ellectra-box {
-            display: block;
-            max-width: 760px;
-            margin: 20px auto 0;
-            border-radius: 14px;
-            padding: 18px 20px;
-            background: linear-gradient(135deg, #07080a 0%, #151521 100%);
-            border: 1px solid rgba(255,255,255,0.06);
-            text-decoration: none;
-            color: #e6eef6;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-        }
-
-        .ellectra-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.7);
-            border-color: rgba(var(--color-primary-rgb),0.25);
-        }
-
-        .ellectra-box-inner {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .ellectra-logo-box {
-            height: 140px;
-            width: auto;
-            display: block;
-        }
-
-        .ellectra-box-title {
-            font-weight: 800;
-            color: var(--color-primary);
-            font-size: 1.05em;
-        }
-
-        .ellectra-box-sub {
-            color: #c8c8c8;
-            font-size: 0.95em;
-            margin-top: 4px;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--panel-bg-end) 0%, var(--panel-bg-start) 100%);
-            color: var(--muted-text);
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 40px;
-            border-top: 1px solid rgba(var(--color-secondary-rgb), 0.06);
-            box-shadow: 0 -4px 15px rgba(var(--color-primary-rgb), 0.06);
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            bottom: 20px;
-            width: 100px;
-            height: 100px;
-            background: none;
-            background-size: contain;
-            opacity: 0.12;
-            pointer-events: none;
-        }
-
-        footer p {
-            margin: 5px 0;
-            font-size: 0.9em;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Pages */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Home Page */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .form-section {
-            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(var(--color-primary-rgb), 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Intro note banner: subtle dark background with yellow border */
-        .intro-note {
-            background: linear-gradient(180deg, rgba(34,34,46,0.95) 0%, rgba(20,20,30,0.95) 100%);
-            padding: 28px 22px;
-            border-radius: 12px;
-            color: #fff;
-            text-align: center;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-            border: 4px solid var(--color-primary);
-        }
-
-        .intro-note .btn-primary {
-            background: var(--color-primary);
-            color: var(--color-dark);
-            border-radius: 8px;
-            padding: 10px 14px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .intro-note .btn-outline {
-            background: transparent;
-            color: #fff;
-            border: 2px solid rgba(255,255,255,0.18);
-            border-radius: 8px;
-            padding: 10px 14px;
-            text-decoration: none;
-        }
-
-        .form-section h2 {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .form-section h2::before {
-            content: '⚡';
-            color: var(--color-primary);
-            font-size: 1.2em;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--color-primary);
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid rgba(var(--color-primary-rgb), 0.2);
-            border-radius: 8px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(15, 15, 30, 0.8);
-            color: #e0e0e0;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            background-color: rgba(var(--color-primary-rgb), 0.05);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        button {
-            flex: 1;
-            min-width: 150px;
-            padding: 14px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.3s ease;
-        }
-
-        button:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-            color: var(--color-dark);
-            box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.5);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(var(--color-secondary-rgb), 0.3);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(var(--color-secondary-rgb), 0.5);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--color-dark);
-            border: 2px solid var(--color-dark);
-        }
-
-        .btn-outline:hover {
-            background: var(--color-dark);
-            color: white;
-        }
-
-        /* Services Page */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, rgba(30, 30, 46, 0.8) 0%, rgba(20, 20, 35, 0.8) 100%);
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 5px solid var(--color-primary);
-            box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            border: 1px solid rgba(var(--color-primary-rgb), 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--color-secondary);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.2);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-card h3 {
-            color: var(--color-primary);
-            margin-bottom: 12px;
-            font-size: 1.3em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .service-card.selected {
-            background: linear-gradient(135deg, rgba(var(--color-secondary-rgb), 0.1) 0%, rgba(var(--color-secondary-rgb), 0.05) 100%);
-            border-left-color: var(--color-secondary);
-            box-shadow: 0 0 25px rgba(var(--color-secondary-rgb), 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            border-color: rgba(var(--color-secondary-rgb), 0.5);
-        }
-
-        .service-card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: var(--color-secondary);
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        .service-card p {
-            color: #a0a0a0;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        .back-button {
-            background: var(--color-secondary);
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        .services-header {
-            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 5px solid var(--color-secondary);
-            border: 2px solid rgba(255, 68, 68, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .services-header h2 {
-            background: linear-gradient(135deg, var(--color-secondary) 0%, #ff6b6b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .project-options {
-            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 5px solid var(--color-primary);
-            border: 2px solid rgba(255, 212, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .project-options h3 {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #ffa500 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-
-        .option-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .option-buttons button {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        /* Checkbox for custom project */
-        .custom-project-section {
-            display: none;
-            background: rgba(255, 212, 0, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 2px dashed rgba(255, 212, 0, 0.4);
-            backdrop-filter: blur(10px);
-        }
-
-        .custom-project-section.show {
-            display: block;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            cursor: pointer;
-        }
-
-        .checkbox-group label {
-            margin: 0;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        /* Projects Showcase */
-        .projects-showcase {
-            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(26, 26, 42, 0.9) 100%);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 5px solid var(--color-secondary);
-            border: 2px solid rgba(255, 68, 68, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .projects-showcase h3 {
-            background: linear-gradient(135deg, var(--color-secondary) 0%, #ff6b6b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .project-item {
-            background: linear-gradient(135deg, rgba(30, 30, 46, 0.85) 0%, rgba(20, 20, 35, 0.85) 100%);
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 212, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .project-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 212, 0, 0.3);
-            border-color: var(--color-secondary);
-        }
-
-        .project-item h4 {
-            color: var(--color-primary);
-            margin: 0;
-            font-size: 1.1em;
-        }
-
-        .project-item p {
-            color: #a0a0a0;
-            font-size: 0.9em;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .project-item .project-tech {
-            font-size: 0.85em;
-            color: var(--color-secondary);
-            font-weight: 600;
-        }
-
-        .projects-showcase.hidden {
-            display: none;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: linear-gradient(135deg, var(--color-primary) 0%, #ffc700 100%);
-            color: var(--color-dark);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-            animation: slideIn 0.5s ease-in-out;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            header {
-                flex-direction: column;
-                padding: 24px 16px;
-            }
-
-            .header-logo {
-                left: 12px;
-                top: 10px;
-                height: 52px;
-                margin-bottom: 8px;
-                transform: translateY(-4px);
-            }
-
-            .form-section {
-                padding: 20px;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            button {
-                min-width: 100%;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellectra IoT Workshop</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
+body{background:#0b0b0b;color:#ffffff;overflow-x:hidden;}
+
+/* Thunder */
+.zap{
+position:fixed;
+top:-150vh;
+width:3px;
+height:160vh;
+background:linear-gradient(
+transparent,
+rgba(255,204,0,0.4),
+rgba(255,204,0,0.9),
+rgba(255,204,0,0.4),
+transparent
+);
+filter:blur(0.6px);
+animation:thunderMove 8s linear infinite;
+z-index:-1;
+opacity:0.5;
+}
+.zap:nth-child(1){left:18%;animation-delay:0s;}
+.zap:nth-child(2){left:50%;animation-delay:3s;}
+.zap:nth-child(3){left:78%;animation-delay:6s;}
+
+@keyframes thunderMove{
+0%{transform:translateY(-150vh) skewX(10deg);}
+50%{transform:translateY(0) skewX(-10deg);}
+100%{transform:translateY(150vh) skewX(10deg);}
+}
+
+/* Header */
+header{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+padding:18px;
+border-bottom:2px solid #ffcc00;
+}
+header img{height:55px;}
+header h1{color:#ffcc00;letter-spacing:3px;font-size:26px;}
+
+/* Landing */
+.landing{
+text-align:center;
+padding:70px 20px;
+min-height:65vh;
+}
+.landing h2{
+font-size:38px;
+color:#ffcc00;
+margin-bottom:25px;
+}
+
+/* Buttons */
+.btn{
+margin:12px;
+padding:12px 32px;
+font-size:17px;
+background:transparent;
+border:2px solid #ffcc00;
+color:#ffcc00;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+.btn:hover{background:#ffcc00;color:#000;}
+
+/* Footer */
+.home-footer{
+text-align:center;
+padding:18px;
+margin-top:40px;
+color:#aaa;
+border-top:1px solid #ffcc00;
+}
+
+/* Sections */
+section{
+display:none;
+padding:60px 20px;
+max-width:1100px;
+margin:auto;
+}
+section.active{display:block;}
+
+/* About Grid */
+.about-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+margin-top:30px;
+}
+.about-grid img{
+width:100%;
+border-radius:10px;
+border:2px solid #ffcc00;
+}
+.about-grid h4{color:#ffcc00;margin-top:10px;}
+
+/* Form */
+form{
+border:2px solid #ffcc00;
+padding:30px;
+border-radius:10px;
+margin-top:20px;
+}
+input,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+background:#111;
+border:1px solid #ffcc00;
+color:#fff;
+border-radius:5px;
+}
+.add-btn{
+background:#ffcc00;
+color:#000;
+border:none;
+padding:8px 15px;
+margin-top:10px;
+cursor:pointer;
+border-radius:5px;
+}
+.member{margin-top:10px;}
+</style>
 </head>
+
 <body>
-    <!-- Header with Logo -->
-    <header>
-        <div class="header-row">
-            <img src="logo.jpeg" alt="TechVenture logo" class="header-logo-inline">
-            <div class="title-text">TECHVENTURE</div>
-        </div>
-        <div class="powered-by">
-            <span class="logo-text">🔌 Powered by</span>
-            <div class="logo-placeholder">
-                <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra logo" class="ellectra-logo">
-            </div>
-        </div>
-    </header>
 
-    <!-- Page 1: Contact Form -->
-    <div id="formPage" class="page active">
-        <div class="container">
-            <div class="form-area">
-                <!-- Intro note (red / yellow / black background) -->
-                <div class="intro-note" style="margin-bottom:20px;">
-                    <h2 style="margin-bottom:8px; font-size:2em;">Your Complete Academic Project Partner</h2>
-                    <p style="margin:0 auto 16px; max-width:800px; color:#fff; opacity:0.95; line-height:1.5;"> Trusted project center for engineering, diploma, and science students. Get expert guidance, ready-made projects, custom development, and 24/7 support for all your academic project needs.</p>
-                    <div style="display:flex;gap:12px;justify-content:center;margin-top:14px;">
-                        <button type="button" class="btn-secondary" onclick="goToServices()" style="max-width:220px;display:inline-block;text-align:center;">📋 View Services</button>
-                    </div>
-                </div>
+<div class="zap"></div>
+<div class="zap"></div>
+<div class="zap"></div>
 
-                <div class="form-section" style="flex:1;">
-                    <h2>Project Inquiry Form</h2>
-                    
-                    <div id="successMessage" class="success-message"></div>
+<header>
+<img src="https://github.com/pprojectcentreee/web-host-/blob/main/Ellectra_w01wap.png?raw=true">
+<h1> IOT WORKSHOP</h1>
+</header>
 
-                    <form id="projectForm">
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
-                        </div>
+<div class="landing">
+<h2>Ellectra IoT Workshop 2026</h2>
+<h2>Work shop is conducted on 20.02.2026</h2>
+<button class="btn" onclick="showSection('about')">About the Workshop</button>
+<button class="btn" onclick="showSection('register')">Register</button>
+<p>
+An intensive Internet of Things (IoT) Workshop is to be conducted by Ellectra Company in collaboration with Node Nova, exclusively for the students of the EEE and ECE departments at Meenakshi Sundararajan Engineering College on Friday, 20.02.2026.
 
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required placeholder="Enter your email">
-                        </div>
+The workshop aims to provide hands-on exposure to IoT technologies, embedded systems, and real-time applications. Participants will be introduced to the fundamentals of IoT architecture, sensor integration, microcontroller programming, cloud connectivity, and real-time data monitoring. The session will focus on bridging the gap between theoretical knowledge and practical implementation.
+</p>
 
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
-                        </div>
+<div style="text-align: center; margin-top: 15px;">
+    <img src="https://github.com/pprojectcentreee/web-host-/blob/main/Ellectra_w01wap.png?raw=true" 
+         width="250" 
+         style="margin-right: 20px;">
 
-                        <div class="form-group">
-                            <label for="college">College/Institution *</label>
-                            <input type="text" id="college" name="college" required placeholder="Enter your college name">
-                        </div>
+    <img src="https://github.com/pprojectcentreee/Workshop/blob/main/node%20nova.jpg?raw=true" 
+         width="250">
+</div>
 
-                        <div class="form-group">
-                            <label for="degree">Degree</label>
-                            <select id="degree" name="degree" onchange="populateCourses()">
-                                <option value="">-- Select Degree (optional) --</option>
-                                <option value="B.E./B.Tech">B.E./B.Tech</option>
-                                <option value="M.E./M.Tech">M.E./M.Tech</option>
-                                <option value="Diploma">Diploma</option>
-                                <option value="B.Sc">B.Sc</option>
-                                <option value="BCA/B.Sc CS">BCA / B.Sc (CS)</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
+<div class="home-footer">
+© 2026 Ellectra | Certified IoT Workshop
+</div>
+</div>
 
-                        <div class="form-group">
-                            <label for="course">Course / Branch</label>
-                            <select id="course" name="course" disabled>
-                                <option value="">-- Select Course (optional) --</option>
-                            </select>
-                        </div>
+<!-- ABOUT -->
+<section id="about">
+<h2 style="color:#ffcc00;">About the Workshop</h2>
 
-                        <div class="form-group">
-                            <label for="service">Selected Service</label>
-                            <input type="text" id="service" name="service" readonly placeholder="Service will appear here after selection">
-                        </div>
+<p style="margin-top:15px;">
+Ellectra IoT Workshop is a hands-on industrial training program focused on ESP32,
+embedded systems, and real-time IoT applications aligned with Industry 4.0.
+</p>
 
-                        <!-- recipient selection removed — messages will be sent to all configured owners by default -->
+<h3 style="color:#ffcc00;margin-top:20px;">Scope in Current Industries</h3>
+<p>
+Smart Manufacturing, Electric Vehicles, Renewable Energy, Industrial Automation,
+Healthcare Monitoring, Smart Agriculture, and AI-driven IoT systems.
+</p>
 
-                        <div class="form-group">
-                            <label for="projectDetails">Project Details *</label>
-                            <textarea id="projectDetails" name="projectDetails" required placeholder="Enter your project details, requirements, or description..."></textarea>
-                        </div>
+<h3 style="color:#ffcc00;margin-top:20px;">Why This Workshop is Important</h3>
+<p>
+This workshop equips students with practical exposure to hardware interfacing,
+wireless communication, cloud connectivity, and industrial safety standards.
+</p>
 
-                        <div class="form-group">
-                            <label for="budget">Budget (Optional)</label>
-                            <input type="text" id="budget" name="budget" placeholder="Enter your budget range">
-                        </div>
+<h3 style="color:#ffcc00;margin-top:20px;">What You Will Learn</h3>
+<ul style="margin-left:20px;">
+<li>ESP32 WiFi & Bluetooth Programming</li>
+<li>Sensor Interfacing & Protection</li>
+<li>Industrial IoT Architecture</li>
+<li>Embedded Debugging</li>
+<li>Real-time Cloud Monitoring</li>
+</ul>
 
-                        <div class="form-group">
-                            <label for="deadline">Deadline (Optional)</label>
-                            <input type="date" id="deadline" name="deadline">
-                        </div>
+<div class="about-grid">
+<div>
+<img src="https://github.com/pprojectcentreee/Workshop/blob/main/arduino-electronics-integrated-circuit-ic.jpg?raw=true">
+<h4>Arduino & Electronics</h4>
+<p>Embedded electronics and component handling fundamentals.</p>
+</div>
 
-                        <div class="button-group">
-                            <button type="submit" class="btn-primary">
-                                🚀 Submit Inquiry
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div>
+<img src="https://github.com/pprojectcentreee/Workshop/blob/main/esp32.png?raw=true">
+<h4>ESP32 Controller</h4>
+<p>Industrial-grade IoT controller with WiFi & Bluetooth.</p>
+</div>
 
-                <!-- Centered, larger Ellectra box below the form -->
-            </div>
-            <a href="https://www.ellectra.in/" target="_blank" rel="noopener noreferrer" class="ellectra-box">
-                <div class="ellectra-box-inner" style="flex-direction:column; text-align:center;">
-                    <div class="ellectra-box-title" style="font-size:1.05em;">Buy products — Electrical&Electronics</div>
-                    <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra" class="ellectra-logo-box ellectra-logo-center" style="margin-top:8px;">
-                    <div class="ellectra-box-sub" style="margin-top:8px;">Quality product with best price</div>
-                </div>
-            </a>
-        </div>
-    </div>
+<div>
+<img src="https://github.com/pprojectcentreee/Workshop/blob/main/iot.jpg?raw=true">
+<h4>IoT Applications</h4>
+<p>Smart monitoring, automation, and control systems.</p>
+</div>
+</div>
 
-    <!-- Page 2: Services Selection -->
-    <div id="servicesPage" class="page">
-        <div class="container">
-            <button class="btn-secondary back-button" onclick="goToForm()">← Back to Form</button>
+<br>
+<button class="btn" onclick="goHome()">Back</button>
+</section>
 
-            <div class="services-header">
-                <h2>⚡ Our Services</h2>
-                <p>Select a service below to add it to your form, or continue with custom project details</p>
-            </div>
+<!-- REGISTER -->
+<!-- REGISTER -->
+<section id="register">
+<h2 style="color:#ffcc00;">Team Registration</h2>
 
-            <div class="services-grid" id="servicesGrid">
-                <!-- Services will be generated here -->
-            </div>
+<form id="regForm">
 
-            <div class="project-options">
-                <h3>What would you like to do?</h3>
-                <div class="option-buttons">
-                    <button type="button" class="btn-primary" onclick="useSelectedService()">
-                        ✓ Use Selected Service
-                    </button>
-                    <button type="button" class="btn-outline" onclick="useCustomProject()">
-                        ✎ Continue with Custom Details
-                    </button>
-                </div>
-            </div>
+<label>Team Name</label>
+<input name="team" required>
 
-            <div class="custom-project-section" id="customProjectSection">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="confirmCustom" onchange="toggleCustomConfirm()">
-                    <label for="confirmCustom">I want to provide my own project details</label>
-                </div>
-                <button type="button" class="btn-primary" id="confirmCustomBtn" onclick="goToFormWithCustom()" disabled>
-                    Proceed with Custom Details
-                </button>
-            </div>
-        </div>
-    </div>
+<label>Department</label>
+<select name="dept" required>
+<option>EEE</option><option>ECE</option><option>MECH</option>
+<option>AIDS</option><option>IT</option><option>CIVIL</option><option>CSE</option>
+</select>
 
-    <!-- Footer -->
-    <footer>
-        <p><strong>⚡ TechVenture - Your Project Solution Partner ⚡</strong></p>
-        <p>📍 Chennai, Tamil Nadu | 📧 ellectra2025@gmail.com</p>
-        <p>🔌 Powered by <img src="https://raw.githubusercontent.com/pprojectcentreee/web-host-/main/Ellectra_w01wap.png" alt="Ellectra logo" class="ellectra-logo-footer" style="vertical-align:middle; margin:0 8px;"> | Quality Projects, Fast Delivery</p>
-        <p>Techventure EMAIL : pprojectcentre@gmail.com
-        <p style="margin-top: 15px; font-size: 0.85em; opacity: 0.8;">© 2025 TechVenture. All rights reserved.</p>
-    </footer>
+<label>Year</label>
+<select name="year" required>
+<option value="">Select Year</option>
+<option>First Year</option>
+<option>Second Year</option>
+<option>Third Year</option>
+</select>
 
-    <script>
-        // Services Data
-        const services = [
-            {
-                id: 1,
-                name: "IoT & Embedded Systems",
-                description: "ESP32, Arduino projects with WiFi connectivity, sensor integration, and real-time monitoring systems"
-            },
-            {
-                id: 2,
-                name: "Robotics & Automation",
-                description: "Self-driving robots, obstacle avoidance, automated systems with computer vision and sensor fusion"
-            },
-            {
-                id: 3,
-                name: "Web Development",
-                description: "Full-stack web applications, responsive design, backend APIs, and cloud integration"
-            },
-            {
-                id: 4,
-                name: "Machine Learning & AI",
-                description: "ML models, neural networks, face recognition, predictive analytics, and AI implementations"
-            },
-            {
-                id: 5,
-                name: "Mobile App Development",
-                description: "Android apps, iOS apps, cross-platform solutions with database connectivity"
-            },
-            {
-                id: 6,
-                name: "Documentation & Reports",
-                description: "IEEE format reports, research papers, project documentation, and technical write-ups"
-            }
-            ,
-            {
-                id: 7,
-                name: "VLSI Design",
-                description: "Custom IC design, RTL (Verilog/VHDL), FPGA prototyping, ASIC flow support, and timing/power optimization"
-            },
-            {
-                id: 8,
-                name: "PCB Design",
-                description: "Schematic capture, multi-layer PCB layout, routing, DFx/DRC checks, Gerber/ODB++ fabrication files"
-            },
-            {
-                id: 9,
-                name: "3D Design",
-                description: "CAD modelling, 3D printing-ready STL/STEP files, mechanical assemblies and product enclosure design"
-            }
-        ];
+<!-- NEW FIELDS ADDED -->
+<label>Email ID</label>
+<input type="email" name="email" placeholder="Team Contact Email" required>
 
-        // WhatsApp recipients (international format, digits only)
-        const WHATSAPP_NUMBERS = {
-            owner1: "916381733447",  // +91 63817 33447
-            owner2: "919445641966"   // +91 9445641966
-        };
+<label>Phone Number</label>
+<input type="tel" name="phone" placeholder="Team Contact Phone Number" required>
 
-        const OWNER_NAMES = {
-            owner1: "Girish",       // Replace with NAME 1
-            owner2: "iyaappan"        // Replace with NAME 2
-        };
+<h3 style="color:#ffcc00;margin-top:15px;">Team Members (Min 3 – Max 5)</h3>
 
-        let selectedService = null;
+<div id="members">
+<div class="member">
+<input name="m1_name" placeholder="Member 1 Name" required>
+<input name="m1_reg" placeholder="Member 1 Register Number" required>
+</div>
+<div class="member">
+<input name="m2_name" placeholder="Member 2 Name" required>
+<input name="m2_reg" placeholder="Member 2 Register Number" required>
+</div>
+<div class="member">
+<input name="m3_name" placeholder="Member 3 Name" required>
+<input name="m3_reg" placeholder="Member 3 Register Number" required>
+</div>
+</div>
 
-        // Initialize Services Grid
-        function initializeServices() {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = services.map(service => `
-                <div class="service-card" onclick="selectService(${service.id})">
-                    <h3>⚡ ${service.name}</h3>
-                    <p>${service.description}</p>
-                </div>
-            `).join('');
-        }
+<button type="button" class="add-btn" onclick="addMember()">+ Add Member</button>
 
-        // Select Service
-        function selectService(serviceId) {
-            selectedService = services.find(s => s.id === serviceId);
-            
-            // Update UI
-            document.querySelectorAll('.service-card').forEach((card, index) => {
-                if (services[index].id === serviceId) {
-                    card.classList.add('selected');
-                } else {
-                    card.classList.remove('selected');
-                }
-            });
-        }
+<br><br>
+<button type="submit" class="btn">Submit Registration</button>
+</form>
 
-        // Use Selected Service
-        function useSelectedService() {
-            if (!selectedService) {
-                alert('Please select a service first!');
-                return;
-            }
+<br>
+<button class="btn" onclick="goHome()">Back</button>
+</section>
 
-            document.getElementById('service').value = selectedService.name;
-            document.getElementById('projectDetails').focus();
-            goToForm();
-        }
+<script>
+let memberCount = 3;
 
-        // Use Custom Project
-        function useCustomProject() {
-            document.getElementById('customProjectSection').classList.add('show');
-        }
+function addMember(){
+if(memberCount >=5){
+alert("Maximum 5 members allowed");
+return;
+}
+memberCount++;
+let div=document.createElement("div");
+div.className="member";
+div.innerHTML=`
+<input name="m${memberCount}_name" placeholder="Member ${memberCount} Name" required>
+<input name="m${memberCount}_reg" placeholder="Member ${memberCount} Register Number" required>
+`;
+document.getElementById("members").appendChild(div);
+}
 
-        // Toggle Custom Confirm
-        function toggleCustomConfirm() {
-            const btn = document.getElementById('confirmCustomBtn');
-            btn.disabled = !document.getElementById('confirmCustom').checked;
-        }
+function showSection(id){
+document.querySelector('.landing').style.display="none";
+document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
 
-        // Go to Form with Custom
-        function goToFormWithCustom() {
-            document.getElementById('service').value = 'Custom Project';
-            goToForm();
-        }
+function goHome(){
+document.querySelector('.landing').style.display="block";
+document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+}
 
-        // Navigation
-        function goToServices() {
-            document.getElementById('formPage').classList.remove('active');
-            document.getElementById('servicesPage').classList.add('active');
-            initializeServices();
-        }
-
-        function goToForm() {
-            document.getElementById('servicesPage').classList.remove('active');
-            document.getElementById('formPage').classList.add('active');
-            document.getElementById('customProjectSection').classList.remove('show');
-            document.getElementById('confirmCustom').checked = false;
-        }
-
-        // Courses per degree mapping and helper to populate course options
-        const COURSES_BY_DEGREE = {
-            'B.E./B.Tech': ['Computer Science', 'Electronics & Communication', 'Electrical', 'Mechanical', 'Civil', 'Information Technology', 'Instrumentation'],
-            'M.E./M.Tech': ['Computer Science', 'VLSI', 'Power Systems', 'Thermal', 'Structural'],
-            'Diploma': ['EEE', 'ECE', 'Mechanical', 'Civil', 'IT'],
-            'B.Sc': ['Physics', 'Electronics', 'Computer Science'],
-            'BCA/B.Sc CS': ['BCA', 'B.Sc (CS)'],
-            'Other': ['Other']
-        };
-
-        function populateCourses() {
-            const deg = document.getElementById('degree') ? document.getElementById('degree').value : '';
-            const courseSelect = document.getElementById('course');
-            if (!courseSelect) return;
-            courseSelect.innerHTML = '<option value="">-- Select Course (optional) --</option>';
-            if (!deg) {
-                courseSelect.disabled = true;
-                return;
-            }
-            const list = COURSES_BY_DEGREE[deg] || [];
-            list.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c;
-                opt.textContent = c;
-                courseSelect.appendChild(opt);
-            });
-            courseSelect.disabled = false;
-        }
-// Form Submission (WhatsApp + Formspree)
-document.getElementById('projectForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    /* ---------- ADD THIS: SEND TO FORMSPREE ---------- */
-    fetch("https://formspree.io/f/xgowapng", {
-        method: "POST",
-        headers: { "Accept": "application/json" },
-        body: new FormData(this)
-    }).catch(err => console.error("Formspree error:", err));
-    /* ---------- END FORMSPREE ---------- */
-
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        college: document.getElementById('college').value,
-        degree: document.getElementById('degree') ? document.getElementById('degree').value : '',
-        course: document.getElementById('course') ? document.getElementById('course').value : '',
-        service: document.getElementById('service').value,
-        projectDetails: document.getElementById('projectDetails').value,
-        budget: document.getElementById('budget').value,
-        deadline: document.getElementById('deadline').value
-    };
-
-    // Build the message to send
-    const message = `New Inquiry from TechVenture Portal\n` +
-        `Name: ${formData.name}\n` +
-        `Email: ${formData.email}\n` +
-        `Phone: ${formData.phone}\n` +
-        `College: ${formData.college}\n` +
-        `Degree: ${formData.degree}\n` +
-        `Course: ${formData.course}\n` +
-        `Service: ${formData.service}\n` +
-        `Details: ${formData.projectDetails}\n` +
-        `Budget: ${formData.budget}\n` +
-        `Deadline: ${formData.deadline}`;
-
-    const encoded = encodeURIComponent(message);
-
-    // Send to all configured WhatsApp owners
-    const recipients = [];
-    if (typeof WHATSAPP_NUMBERS !== 'undefined') {
-        for (const key in WHATSAPP_NUMBERS) {
-            if (!Object.prototype.hasOwnProperty.call(WHATSAPP_NUMBERS, key)) continue;
-            const raw = WHATSAPP_NUMBERS[key];
-            const phoneDigits = String(raw).replace(/\D/g, '');
-            if (phoneDigits) recipients.push({ key, phone: phoneDigits });
-        }
-    }
-
-    if (!recipients.length) {
-        alert('No WhatsApp recipient numbers are configured.');
-        return;
-    }
-
-    // Open WhatsApp chats
-    recipients.forEach((r, idx) => {
-        const waUrl = `https://wa.me/${r.phone}?text=${encoded}`;
-        if (idx === 0) {
-            window.open(waUrl, '_blank');
-        } else {
-            setTimeout(() => window.open(waUrl, '_blank'), idx * 300);
-        }
-    });
-
-    // Show confirmation
-    const successMsg = document.getElementById('successMessage');
-    const names = recipients
-        .map(r => (typeof OWNER_NAMES !== 'undefined' ? (OWNER_NAMES[r.key] || r.key) : r.key))
-        .join(', ');
-    successMsg.textContent = `Opening WhatsApp to ${names}... please send the messages to complete inquiry.`;
-    successMsg.classList.add('show');
-
-    // Reset form
-    this.reset();
-    document.getElementById('service').value = '';
-    if (document.getElementById('degree')) document.getElementById('degree').selectedIndex = 0;
-    if (document.getElementById('course')) {
-        document.getElementById('course').selectedIndex = 0;
-        document.getElementById('course').disabled = true;
-    }
-
-    setTimeout(() => {
-        successMsg.classList.remove('show');
-    }, 6000);
+document.getElementById("regForm").addEventListener("submit",function(e){
+e.preventDefault();
+if(memberCount < 3){
+alert("Minimum 3 members required");
+return;
+}
+fetch("https://script.google.com/macros/s/AKfycbwztguiaWyYDTyVIydl8Spjxi49c7tjNg8-X3efX90hHdagFjvC3fsi1YUyYZb4QhSa/exec",{
+method:"POST",
+body:new FormData(this)
+})
+.then(()=>{alert("Registration Successful!");this.reset();location.reload();})
+.catch(()=>alert("Submission Failed"));
 });
+</script>
 
-    </script>
 </body>
 </html>
-
-
